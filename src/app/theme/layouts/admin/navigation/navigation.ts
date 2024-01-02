@@ -33,22 +33,6 @@ export const NavigationItems: NavigationItem[] = [
                 icon: 'feather icon-home'
             },
             {
-                id: 'cua-hang',
-                title: 'Cửa hàng',
-                type: 'collapse',
-                icon: 'fas fa-store',
-                children: [
-                    {
-                        id: 'chi-tiet-cua-hang',
-                        title: 'Danh sách',
-                        type: 'item',
-                        url: '#',
-                        external: true,
-                        icon: 'fas fa-list-ul'
-                    }
-                ]
-            },
-            {
                 id: 'san-pham',
                 title: 'Sản phẩm',
                 type: 'collapse',
@@ -58,7 +42,7 @@ export const NavigationItems: NavigationItem[] = [
                         id: 'danh-sach-san-pham',
                         title: 'Danh sách',
                         type: 'item',
-                        url: '#',
+                        url: '/p',
                         external: true,
                         icon: 'fas fa-list-ul'
                     }
@@ -66,9 +50,9 @@ export const NavigationItems: NavigationItem[] = [
             },
             {
                 id: 'don-dat-hang',
-                title: 'Đơn đặt hàng',
+                title: 'Đơn hàng',
                 type: 'item',
-                url: '#',
+                url: '/order',
                 icon: 'fas fa-shopping-basket'
             },
             {

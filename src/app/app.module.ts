@@ -15,9 +15,20 @@ import { NavContentComponent } from './theme/layouts/admin/navigation/nav-conten
 import { NavCollapseComponent } from './theme/layouts/admin/navigation/nav-content/nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './theme/layouts/admin/navigation/nav-content/nav-group/nav-group.component';
 import { NavItemComponent } from './theme/layouts/admin/navigation/nav-content/nav-item/nav-item.component';
+import { SocketIoModule } from 'ngx-socket-io';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductComponent } from './pages/product/product.component';
+
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { OrderComponent } from './pages/order/order.component';
+
+
+const socketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
     declarations: [
@@ -29,7 +40,9 @@ import { MatButtonModule } from '@angular/material/button';
         NavContentComponent,
         NavCollapseComponent,
         NavGroupComponent,
-        NavItemComponent
+        NavItemComponent,
+        ProductComponent,
+        OrderComponent
     ],
     imports: [
         BrowserModule,
@@ -38,7 +51,10 @@ import { MatButtonModule } from '@angular/material/button';
         SharedModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule
+        HttpClientModule,
+        BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule,
+        MatPaginatorModule, MatTableModule, MatSortModule,
+        SocketIoModule.forRoot(socketIoConfig)
     ],
     providers: [],
     bootstrap: [AppComponent]

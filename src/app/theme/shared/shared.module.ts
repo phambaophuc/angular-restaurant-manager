@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // third party
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgClickOutsideDirective } from 'ng-click-outside2';
 import 'hammerjs';
 import 'mousetrap';
@@ -27,7 +26,6 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
         ReactiveFormsModule,
         CardComponent,
         BreadcrumbComponent,
-        NgScrollbarModule,
         NgClickOutsideDirective,
         NgbDropdownModule,
         NgbNavModule,
@@ -44,7 +42,6 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
         NgbModule,
         NgbDropdownModule,
         NgbNavModule,
-        NgScrollbarModule,
         NgClickOutsideDirective
     ]
 })
