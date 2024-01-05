@@ -7,15 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-    apiURL = 'http://localhost:3000/api/v1';
+    apiURL = 'http://localhost:3000/api/v1/product';
 
     constructor(private http: HttpClient) { }
 
     getProducts(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiURL}/product`);
+        return this.http.get<any[]>(`${this.apiURL}`);
     }
 
     getProductById(id: string): Observable<any> {
-        return this.http.get<any>(`${this.apiURL}/product/${id}`);
+        return this.http.get<any>(`${this.apiURL}/${id}`);
     }
 }

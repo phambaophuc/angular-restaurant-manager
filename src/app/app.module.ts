@@ -27,6 +27,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { OrderComponent } from './pages/order/order.component';
 
+import { ToastrModule } from 'ngx-toastr';
+import { OrderCompletedComponent } from './pages/order/order-completed/order-completed.component';
+import { OrderCancelledComponent } from './pages/order/order-cancelled/order-cancelled.component';
+import { OrderDetailComponent } from './pages/order/order-detail/order-detail.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 const socketIoConfig = { url: 'http://localhost:3000', options: {} };
 
@@ -42,7 +48,10 @@ const socketIoConfig = { url: 'http://localhost:3000', options: {} };
         NavGroupComponent,
         NavItemComponent,
         ProductComponent,
-        OrderComponent
+        OrderComponent,
+        OrderCompletedComponent,
+        OrderCancelledComponent,
+        OrderDetailComponent
     ],
     imports: [
         BrowserModule,
@@ -53,8 +62,11 @@ const socketIoConfig = { url: 'http://localhost:3000', options: {} };
         ReactiveFormsModule,
         HttpClientModule,
         BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule,
-        MatPaginatorModule, MatTableModule, MatSortModule,
-        SocketIoModule.forRoot(socketIoConfig)
+        MatPaginatorModule, MatTableModule, MatSortModule, MatDialogModule,
+        SocketIoModule.forRoot(socketIoConfig),
+        ToastrModule.forRoot({
+            timeOut: 3000
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]

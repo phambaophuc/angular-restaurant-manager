@@ -48,6 +48,10 @@ $manage-shop-theme: mat.define-light-theme((color: (primary: $manage-shop-primar
 @import 'scss/themes/generic';
 @import 'scss/themes/minixs/function';
 
+// regular style toast
+@import '../node_modules/ngx-toastr/toastr';
+@import '../node_modules/ngx-toastr/toastr-bs5-alert.scss';
+
 // icon
 @import 'scss/themes/font/datta-icon';
 @import 'scss/themes/font/feather';
@@ -104,4 +108,9 @@ mat-header-cell {
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
+}
+
+.toast-message,
+.toast-title {
+    color: white;
 }

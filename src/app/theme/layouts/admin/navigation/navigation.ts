@@ -34,9 +34,9 @@ export const NavigationItems: NavigationItem[] = [
             },
             {
                 id: 'san-pham',
-                title: 'Sản phẩm',
-                type: 'collapse',
+                title: 'Quản lý sản phẩm',
                 icon: 'fas fa-cube',
+                type: 'collapse',
                 children: [
                     {
                         id: 'danh-sach-san-pham',
@@ -44,22 +44,50 @@ export const NavigationItems: NavigationItem[] = [
                         type: 'item',
                         url: '/p',
                         external: true,
-                        icon: 'fas fa-list-ul'
                     }
                 ]
             },
             {
-                id: 'don-dat-hang',
-                title: 'Đơn hàng',
-                type: 'item',
-                url: '/order',
-                icon: 'fas fa-shopping-basket'
+                id: 'don-hang',
+                title: 'Quản lý đơn hàng',
+                icon: 'fas fa-shopping-basket',
+                type: 'collapse',
+                children: [
+                    {
+                        id: 'don-hang-new',
+                        title: 'Đơn hàng',
+                        type: 'collapse',
+                        children: [
+                            {
+                                id: 'don-hang-new',
+                                title: 'Đơn hàng mới',
+                                type: 'item',
+                                url: '/order',
+                                external: true,
+                            },
+                            {
+                                id: 'don-hang-completed',
+                                title: 'Đã hoàn thành',
+                                type: 'item',
+                                url: '/order/completed',
+                                external: true,
+                            },
+                            {
+                                id: 'don-hang-cancel',
+                                title: 'Đơn hàng đã huỷ',
+                                type: 'item',
+                                url: '/order/cancelled',
+                                external: true,
+                            }
+                        ]
+                    }
+                ]
             },
             {
                 id: 'hoa-don',
-                title: 'Hoá đơn',
-                type: 'collapse',
+                title: 'Quản lý hoá đơn',
                 icon: 'fas fa-file-invoice',
+                type: 'collapse',
                 children: [
                     {
                         id: 'chi-tiet-hoa-don',
@@ -67,15 +95,13 @@ export const NavigationItems: NavigationItem[] = [
                         type: 'item',
                         url: '#',
                         external: true,
-                        icon: 'fas fa-file-alt'
                     },
                     {
                         id: 'thong-ke-hoa-don',
                         title: 'Thống kê',
                         type: 'item',
                         url: '#',
-                        external: true,
-                        icon: 'fas fa-chart-bar'
+                        external: true
                     }
                 ]
             }

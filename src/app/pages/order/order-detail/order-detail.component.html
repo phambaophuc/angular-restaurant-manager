@@ -1,0 +1,55 @@
+<div class="p-4 order-list">
+    <div class="d-flex justify-content-around">
+        <h4 class="text-center mb-4">Chi tiết đơn hàng</h4>
+    </div>
+
+    <div class="row" *ngFor="let item of products; let last = last">
+        <div class="col-md-6 d-flex align-items-center">
+            <img [src]="item.img" class="mx-auto d-block" width="150px">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <div class="me-3">
+                <p class="mb-0 text-truncate"><strong>Tên:</strong> {{ item.name }}</p>
+                <p class="mb-0 text-truncate"><strong>Giá:</strong>
+                    {{ item.price | currency: 'VND' }}
+                </p>
+                <p class="mb-0 text-truncate"><strong>Số lượng:</strong>
+                    {{ item.quantity }}
+                </p>
+            </div>
+        </div>
+        <mat-divider class="my-3" *ngIf="!last"></mat-divider>
+    </div>
+
+    <!-- <hr>
+
+    <div class="text-end mt-4">
+        <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-around">
+                <div class="me-3">
+                    <h5 style="font-size: 1em; color: #555;">
+                        Tổng cộng ({{ data.foods.length }} món):
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        Giảm giá:
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        Phí ship:
+                    </h5>
+                </div>
+                <div>
+                    <h5 style="font-size: 1em; color: #555;">
+                        {{ totalAmount | currency: 'VND' }}
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        -{{ discount | currency: 'VND' }}
+                    </h5>
+                    <h5 style="font-size: 1em; color: #555;">
+                        {{ shoppingFee | currency: 'VND' }}
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <h4>Tổng cộng: <span class="total-amount">{{ totalPrice | currency: 'VND' }}</span></h4>
+    </div> -->
+</div>
