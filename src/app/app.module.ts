@@ -32,9 +32,10 @@ import { OrderCompletedComponent } from './pages/order/order-completed/order-com
 import { OrderCancelledComponent } from './pages/order/order-cancelled/order-cancelled.component';
 import { OrderDetailComponent } from './pages/order/order-detail/order-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { TableComponent } from './pages/table/table.component';
 
 
-const socketIoConfig = { url: 'http://localhost:3000', options: {} };
+const socketIoConfig = { url: 'http://localhost:3000', options: { transports: ['websocket'] } };
 
 @NgModule({
     declarations: [
@@ -51,7 +52,8 @@ const socketIoConfig = { url: 'http://localhost:3000', options: {} };
         OrderComponent,
         OrderCompletedComponent,
         OrderCancelledComponent,
-        OrderDetailComponent
+        OrderDetailComponent,
+        TableComponent
     ],
     imports: [
         BrowserModule,

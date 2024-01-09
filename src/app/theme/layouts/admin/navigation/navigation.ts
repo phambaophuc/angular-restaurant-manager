@@ -33,17 +33,30 @@ export const NavigationItems: NavigationItem[] = [
                 icon: 'feather icon-home'
             },
             {
+                id: 'table',
+                title: 'Quản lý bàn',
+                icon: 'fas fa-table',
+                type: 'collapse',
+                children: [
+                    {
+                        id: 'ban-co-san',
+                        title: 'Danh sách bàn ăn',
+                        type: 'item',
+                        url: '/table'
+                    }
+                ]
+            },
+            {
                 id: 'san-pham',
                 title: 'Quản lý sản phẩm',
-                icon: 'fas fa-cube',
+                icon: 'fas fa-utensils',
                 type: 'collapse',
                 children: [
                     {
                         id: 'danh-sach-san-pham',
                         title: 'Danh sách',
                         type: 'item',
-                        url: '/p',
-                        external: true,
+                        url: '/p'
                     }
                 ]
             },
@@ -62,22 +75,19 @@ export const NavigationItems: NavigationItem[] = [
                                 id: 'don-hang-new',
                                 title: 'Đơn hàng mới',
                                 type: 'item',
-                                url: '/order',
-                                external: true,
+                                url: '/order'
                             },
                             {
                                 id: 'don-hang-completed',
                                 title: 'Đã hoàn thành',
                                 type: 'item',
-                                url: '/order/completed',
-                                external: true,
+                                url: '/order/completed'
                             },
                             {
                                 id: 'don-hang-cancel',
                                 title: 'Đơn hàng đã huỷ',
                                 type: 'item',
-                                url: '/order/cancelled',
-                                external: true,
+                                url: '/order/cancelled'
                             }
                         ]
                     }
@@ -93,15 +103,13 @@ export const NavigationItems: NavigationItem[] = [
                         id: 'chi-tiet-hoa-don',
                         title: 'Chi tiết',
                         type: 'item',
-                        url: '#',
-                        external: true,
+                        url: '#'
                     },
                     {
                         id: 'thong-ke-hoa-don',
                         title: 'Thống kê',
                         type: 'item',
-                        url: '#',
-                        external: true
+                        url: '#'
                     }
                 ]
             }
