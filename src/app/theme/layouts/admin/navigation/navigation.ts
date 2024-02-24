@@ -39,10 +39,16 @@ export const NavigationItems: NavigationItem[] = [
                 type: 'collapse',
                 children: [
                     {
-                        id: 'ban-co-san',
-                        title: 'Danh sách bàn ăn',
+                        id: 'ban-trong',
+                        title: 'Bàn còn trống',
                         type: 'item',
-                        url: '/table'
+                        url: '/table/available'
+                    },
+                    {
+                        id: 'ban-dat',
+                        title: 'Bàn được đặt',
+                        type: 'item',
+                        url: '/table/reserved'
                     }
                 ]
             },

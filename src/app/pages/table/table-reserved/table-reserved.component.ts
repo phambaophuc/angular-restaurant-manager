@@ -3,29 +3,33 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ProductService } from 'src/app/services/product.service';
+import { TableService } from 'src/app/services/table.service';
 
 @Component({
-    selector: 'app-product',
-    templateUrl: './product.component.html',
-    styleUrls: ['./product.component.scss']
+    selector: 'app-table-reserved',
+    templateUrl: './table-reserved.component.html',
+    styleUrls: ['./table-reserved.component.scss']
 })
-export class ProductComponent implements OnInit {
+export class TableReservedComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['id', 'name', 'price', 'type', 'actions'];
+    displayedColumns: string[] = ['tableNumber', 'status', 'bookingTime', 'customer', 'phoneNumber', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
 
     constructor(
-        private productService: ProductService,
+        private tableService: TableService,
         private _liveAnnouncer: LiveAnnouncer
     ) { }
 
     ngOnInit(): void {
-        this.productService.getProducts().subscribe(products => {
-            this.dataSource = new MatTableDataSource(products);
+        this.getTables();
+    }
+
+    getTables() {
+        this.tableService.getTablesByStatus('reserved').subscribe((tables) => {
+            this.dataSource = new MatTableDataSource(tables);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         });

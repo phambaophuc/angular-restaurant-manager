@@ -33,6 +33,7 @@ import { OrderCancelledComponent } from './pages/order/order-cancelled/order-can
 import { OrderDetailComponent } from './pages/order/order-detail/order-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TableComponent } from './pages/table/table.component';
+import { TableReservedComponent } from './pages/table/table-reserved/table-reserved.component';
 
 
 const socketIoConfig = { url: 'http://localhost:3000', options: { transports: ['websocket'] } };
@@ -53,7 +54,8 @@ const socketIoConfig = { url: 'http://localhost:3000', options: { transports: ['
         OrderCompletedComponent,
         OrderCancelledComponent,
         OrderDetailComponent,
-        TableComponent
+        TableComponent,
+        TableReservedComponent
     ],
     imports: [
         BrowserModule,

@@ -28,7 +28,7 @@ export class TableComponent implements OnInit {
     }
 
     getTables() {
-        this.tableService.getTables().subscribe((tables) => {
+        this.tableService.getTablesByStatus('available').subscribe((tables) => {
             this.dataSource = new MatTableDataSource(tables);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;

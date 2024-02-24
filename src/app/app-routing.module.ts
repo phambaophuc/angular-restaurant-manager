@@ -7,6 +7,7 @@ import { OrderComponent } from './pages/order/order.component';
 import { OrderCompletedComponent } from './pages/order/order-completed/order-completed.component';
 import { OrderCancelledComponent } from './pages/order/order-cancelled/order-cancelled.component';
 import { TableComponent } from './pages/table/table.component';
+import { TableReservedComponent } from './pages/table/table-reserved/table-reserved.component';
 
 const routes: Routes = [
     {
@@ -39,8 +40,12 @@ const routes: Routes = [
                 component: OrderCancelledComponent
             },
             {
-                path: 'table',
+                path: 'table/available',
                 component: TableComponent
+            },
+            {
+                path: 'table/reserved',
+                component: TableReservedComponent
             }
         ]
     }
