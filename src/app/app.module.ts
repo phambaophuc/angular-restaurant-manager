@@ -15,7 +15,6 @@ import { NavContentComponent } from './theme/layouts/admin/navigation/nav-conten
 import { NavCollapseComponent } from './theme/layouts/admin/navigation/nav-content/nav-collapse/nav-collapse.component';
 import { NavGroupComponent } from './theme/layouts/admin/navigation/nav-content/nav-group/nav-group.component';
 import { NavItemComponent } from './theme/layouts/admin/navigation/nav-content/nav-item/nav-item.component';
-import { SocketIoModule } from 'ngx-socket-io';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductComponent } from './pages/product/product.component';
 
@@ -35,8 +34,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TableComponent } from './pages/table/table.component';
 import { TableReservedComponent } from './pages/table/table-reserved/table-reserved.component';
 
-
-const socketIoConfig = { url: 'http://localhost:3000', options: { transports: ['websocket'] } };
 
 @NgModule({
     declarations: [
@@ -67,7 +64,6 @@ const socketIoConfig = { url: 'http://localhost:3000', options: { transports: ['
         HttpClientModule,
         BrowserAnimationsModule, MatButtonModule, MatDividerModule, MatIconModule,
         MatPaginatorModule, MatTableModule, MatSortModule, MatDialogModule,
-        SocketIoModule.forRoot(socketIoConfig),
         ToastrModule.forRoot({
             timeOut: 3000
         })

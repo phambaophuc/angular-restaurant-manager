@@ -4,12 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Socket } from 'ngx-socket-io';
 import { ToastrService } from 'ngx-toastr';
 import { Status } from 'src/app/enums/status.enum';
 import { OrderService } from 'src/app/services/order.service';
 import { UserService } from 'src/app/services/user.service';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
     selector: 'app-order',
@@ -28,17 +28,13 @@ export class OrderComponent implements OnInit {
         private orderService: OrderService,
         private _liveAnnouncer: LiveAnnouncer,
         private toastr: ToastrService,
-        private socket: Socket,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private webSocketService: WebsocketService
     ) { }
 
     ngOnInit(): void {
         this.getOrders();
         this.updateNewOrder();
-
-        this.socket.on('orderStatusUpdate', (data: any) => {
-            this.updateOrderStatus(data);
-        });
     }
 
     getOrders() {
@@ -50,13 +46,12 @@ export class OrderComponent implements OnInit {
     }
 
     updateNewOrder() {
-        this.socket.on('newOrder', (data: any) => {
-            if (data) {
-                const updatedOrders = [...this.dataSource.data, data];
-                this.dataSource.data = updatedOrders;
-                this.toastr.info('Bạn vừa có 1 đơn hàng mới!', 'New Order');
+        let stompClient = this.webSocketService.connect();
+        stompClient.connect({}, (frame: any) => {
+            stompClient.subscribe('/order/newOrder', (order: any) => {
+                this.toastr.success('Có đơn hàng mới!', 'New');
                 this.getOrders();
-            }
+            })
         });
     }
 
