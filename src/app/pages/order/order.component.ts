@@ -7,9 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Status } from 'src/app/enums/status.enum';
 import { OrderService } from 'src/app/services/order.service';
-import { UserService } from 'src/app/services/user.service';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { WebsocketService } from 'src/app/services/websocket.service';
+import { formatDate } from '@angular/common';
 
 @Component({
     selector: 'app-order',
@@ -33,81 +33,78 @@ export class OrderComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.getOrders();
-        this.updateNewOrder();
+        this.getAllOrders();
+        this.updateOrder();
     }
 
-    getOrders() {
-        this.orderService.getOrders().subscribe(orders => {
+    updateOrder() {
+        let stompClient = this.webSocketService.connect();
+        stompClient.connect({}, () => {
+            stompClient.subscribe('/order/newOrder', (order: any) => {
+                this.toastr.success('Có đơn hàng mới!', 'New');
+                this.getAllOrders();
+            });
+        });
+    }
+
+    getAllOrders() {
+        this.orderService.getAllOrders().subscribe(orders => {
             this.dataSource = new MatTableDataSource(orders);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
         });
     }
 
-    updateNewOrder() {
-        let stompClient = this.webSocketService.connect();
-        stompClient.connect({}, (frame: any) => {
-            stompClient.subscribe('/order/newOrder', (order: any) => {
-                this.toastr.success('Có đơn hàng mới!', 'New');
-                this.getOrders();
-            })
-        });
+    deleteOrderById(id: string) {
+        this.orderService.deleteOrderById(id).subscribe(
+            () => {
+                this.toastr.error('Đã xoá đơn hàng!', 'Deleted!');
+                this.getAllOrders();
+            }
+        );
     }
 
-    changeStatusPreparing(id: string) {
-        this.orderService.changeOrderStatus(id, Status.PREPARING).subscribe(() => {
-            this.toastr.success('Đã cập nhật trạng thái.', 'Preparing');
-        });
-    }
-
-    changeStatusCanceled(id: string) {
-        this.orderService.changeOrderStatus(id, Status.CANCELLED).subscribe(() => {
-            this.toastr.error('Đơn hàng đã bị huỷ.', 'Cancelled');
-            this.getOrders();
-        });
-    }
-
-    changeStatusCompleted(id: string) {
-        this.orderService.changeOrderStatus(id, Status.COMPLETED).subscribe(() => {
-            this.toastr.success('Đã hoàn thành đơn hàng.', 'Completed');
-            this.getOrders();
-        });
-    }
-
-    private updateOrderStatus(updatedOrder: any): void {
-        const index = this.dataSource.data.findIndex((order: any) => order._id === updatedOrder._id);
-
-        if (index !== -1) {
-            this.dataSource.data[index] = updatedOrder;
-            this.dataSource.data = [...this.dataSource.data];
+    updateOrderStatus(id: string, status: Status) {
+        if (status.toLowerCase() === 'pending') {
+            this.orderService.updateOrderStatus(id, Status.PROCESSING)
+                .subscribe(() => {
+                    this.toastr.success('Đã cập nhật trạng thái!', 'Updated!');
+                    this.getAllOrders();
+                });
+        } else {
+            this.orderService.updateOrderStatus(id, Status.COMPLETED)
+                .subscribe(() => {
+                    this.toastr.success('Đã cập nhật trạng thái!', 'Updated!');
+                    this.getAllOrders();
+                });
         }
     }
 
-    getStatusIcon(status: Status): string {
-        switch (status) {
-            case Status.PENDING:
-                return 'fa-hourglass-half';
-            case Status.PREPARING:
-                return 'fa-cogs';
-            default:
-                return '';
-        }
+    // private updateOrderStatus(updatedOrder: any): void {
+    //     const index = this.dataSource.data.findIndex((order: any) => order._id === updatedOrder._id);
+
+    //     if (index !== -1) {
+    //         this.dataSource.data[index] = updatedOrder;
+    //         this.dataSource.data = [...this.dataSource.data];
+    //     }
+    // }
+
+    openOrderDetails(data: any) {
+        this.dialog.open(OrderDetailComponent, { data });
+    }
+
+    formatDateTime(dateTimeString: string): string {
+        return formatDate(dateTimeString, 'dd-MM-yyyy HH:mm', 'en-US');
     }
 
     getStatusTranslation(status: string): string {
         const translations: StatusTranslations = {
             'pending': 'Đang chờ',
-            'preparing': 'Đang chuẩn bị',
-            'completed': 'Đã hoàn thành',
-            'cancelled': 'Đã bị huỷ'
+            'processing': 'Đang chuẩn bị',
+            'completed': 'Đã hoàn thành'
         };
 
         return translations[status.toLowerCase()] || status;
-    }
-
-    openOrderDetails(data: any) {
-        this.dialog.open(OrderDetailComponent, { data });
     }
 
     announceSortChange(sortState: Sort) {
@@ -121,8 +118,7 @@ export class OrderComponent implements OnInit {
 
 interface StatusTranslations {
     pending: string;
-    preparing: string;
+    processing: string;
     completed: string;
-    cancelled: string;
     [key: string]: string;
 }

@@ -40,15 +40,9 @@ export const NavigationItems: NavigationItem[] = [
                 children: [
                     {
                         id: 'ban-trong',
-                        title: 'Bàn còn trống',
+                        title: 'Danh sách bàn',
                         type: 'item',
-                        url: '/table/available'
-                    },
-                    {
-                        id: 'ban-dat',
-                        title: 'Bàn được đặt',
-                        type: 'item',
-                        url: '/table/reserved'
+                        url: '/tables'
                     }
                 ]
             },
@@ -62,7 +56,7 @@ export const NavigationItems: NavigationItem[] = [
                         id: 'danh-sach-san-pham',
                         title: 'Danh sách',
                         type: 'item',
-                        url: '/p'
+                        url: '/products'
                     }
                 ]
             },
@@ -75,27 +69,8 @@ export const NavigationItems: NavigationItem[] = [
                     {
                         id: 'don-hang-new',
                         title: 'Đơn hàng',
-                        type: 'collapse',
-                        children: [
-                            {
-                                id: 'don-hang-new',
-                                title: 'Đơn hàng mới',
-                                type: 'item',
-                                url: '/order'
-                            },
-                            {
-                                id: 'don-hang-completed',
-                                title: 'Đã hoàn thành',
-                                type: 'item',
-                                url: '/order/completed'
-                            },
-                            {
-                                id: 'don-hang-cancel',
-                                title: 'Đơn hàng đã huỷ',
-                                type: 'item',
-                                url: '/order/cancelled'
-                            }
-                        ]
+                        type: 'item',
+                        url: '/orders'
                     }
                 ]
             },

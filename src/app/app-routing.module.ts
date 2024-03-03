@@ -4,10 +4,7 @@ import { AdminComponent } from './theme/layouts/admin/admin.component';
 import { DashAnalyticsComponent } from './pages/dash-analytics/dash-analytics.component';
 import { ProductComponent } from './pages/product/product.component';
 import { OrderComponent } from './pages/order/order.component';
-import { OrderCompletedComponent } from './pages/order/order-completed/order-completed.component';
-import { OrderCancelledComponent } from './pages/order/order-cancelled/order-cancelled.component';
 import { TableComponent } from './pages/table/table.component';
-import { TableReservedComponent } from './pages/table/table-reserved/table-reserved.component';
 
 const routes: Routes = [
     {
@@ -24,28 +21,16 @@ const routes: Routes = [
                 component: DashAnalyticsComponent
             },
             {
-                path: 'p',
+                path: 'products',
                 component: ProductComponent
             },
             {
-                path: 'order',
+                path: 'orders',
                 component: OrderComponent
             },
             {
-                path: 'order/completed',
-                component: OrderCompletedComponent
-            },
-            {
-                path: 'order/cancelled',
-                component: OrderCancelledComponent
-            },
-            {
-                path: 'table/available',
+                path: 'tables',
                 component: TableComponent
-            },
-            {
-                path: 'table/reserved',
-                component: TableReservedComponent
             }
         ]
     }

@@ -27,12 +27,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { OrderComponent } from './pages/order/order.component';
 
 import { ToastrModule } from 'ngx-toastr';
-import { OrderCompletedComponent } from './pages/order/order-completed/order-completed.component';
-import { OrderCancelledComponent } from './pages/order/order-cancelled/order-cancelled.component';
 import { OrderDetailComponent } from './pages/order/order-detail/order-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TableComponent } from './pages/table/table.component';
-import { TableReservedComponent } from './pages/table/table-reserved/table-reserved.component';
 
 
 @NgModule({
@@ -48,11 +45,8 @@ import { TableReservedComponent } from './pages/table/table-reserved/table-reser
         NavItemComponent,
         ProductComponent,
         OrderComponent,
-        OrderCompletedComponent,
-        OrderCancelledComponent,
         OrderDetailComponent,
-        TableComponent,
-        TableReservedComponent
+        TableComponent
     ],
     imports: [
         BrowserModule,

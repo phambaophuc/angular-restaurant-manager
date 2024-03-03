@@ -14,7 +14,7 @@ export class TableComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
-    displayedColumns: string[] = ['tableNumber', 'status', 'actions'];
+    displayedColumns: string[] = ['tableNumber', 'status', 'numberOfSeats', 'actions'];
 
     dataSource!: MatTableDataSource<any>;
 
@@ -28,7 +28,7 @@ export class TableComponent implements OnInit {
     }
 
     getTables() {
-        this.tableService.getTablesByStatus('available').subscribe((tables) => {
+        this.tableService.getAllTables().subscribe((tables) => {
             this.dataSource = new MatTableDataSource(tables);
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -37,9 +37,9 @@ export class TableComponent implements OnInit {
 
     getStatusTranslation(status: string): string {
         const translations: StatusTranslations = {
-            'available': 'Có sẵn',
+            'available': 'Bỏ Trống',
             'reserved': 'Đặt trước',
-            'occupied': 'Đang được sử dụng'
+            'occupied': 'Đang sử dụng'
         };
 
         return translations[status.toLowerCase()] || status;

@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TableService {
 
-    apiURL = 'http://localhost:3000/api/v1/table';
+    apiURL = `${environment.apiUrl}/api/tables`;
 
     constructor(private http: HttpClient) { }
 
-    getTables(): Observable<any[]> {
+    getAllTables(): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiURL}`);
     }
 

@@ -1,6 +1,5 @@
 export enum Status {
-    PENDING = 'pending',
-    PREPARING = 'preparing',
-    COMPLETED = 'completed',
-    CANCELLED = 'cancelled'
+    PENDING = 'PENDING',
+    PROCESSING = 'PROCESSING',
+    COMPLETED = 'COMPLETED'
 }

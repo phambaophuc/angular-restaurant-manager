@@ -1,30 +1,29 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Status } from '../enums/status.enum';
 
 @Injectable({
     providedIn: 'root'
 })
 export class OrderService {
 
-    apiURL = 'http://localhost:8765/api/orders';
+    apiURL = `${environment.apiUrl}/api/orders`;
 
     constructor(private http: HttpClient) { }
 
-    getOrders(): Observable<any[]> {
+    getAllOrders(): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiURL}`);
     }
 
-    getOrdersCompleted(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiURL}/completed`);
+    deleteOrderById(id: string) {
+        return this.http.delete(`${this.apiURL}/${id}`);
     }
 
-    getOrdersCancelled(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiURL}/cancelled`);
-    }
-
-    changeOrderStatus(id: string, status: string): Observable<any> {
-        const URL = `${this.apiURL}/${id}/change-status?status=${status}`;
-        return this.http.put<any>(URL, {});
+    updateOrderStatus(id: string, status: Status): Observable<any> {
+        const URL = `${this.apiURL}/${id}/status`;
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.put<any>(URL, `"${status}"`, { headers });
     }
 }
