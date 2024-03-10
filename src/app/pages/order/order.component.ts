@@ -24,6 +24,8 @@ export class OrderComponent implements OnInit {
 
     dataSource!: MatTableDataSource<any>;
 
+    stompClient: any;
+
     constructor(
         private orderService: OrderService,
         private _liveAnnouncer: LiveAnnouncer,
@@ -34,17 +36,21 @@ export class OrderComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllOrders();
-        this.updateOrder();
+        if (!this.stompClient) {
+            this.updateOrder();
+        }
     }
 
     updateOrder() {
-        let stompClient = this.webSocketService.connect();
-        stompClient.connect({}, () => {
-            stompClient.subscribe('/order/newOrder', (order: any) => {
-                this.toastr.success('Có đơn hàng mới!', 'New');
-                this.getAllOrders();
+        if (!this.stompClient) {
+            this.stompClient = this.webSocketService.connect();
+            this.stompClient.connect({}, () => {
+                this.stompClient.subscribe('/order/newOrder', (order: any) => {
+                    this.toastr.success('Có đơn hàng mới!', 'New');
+                    this.getAllOrders();
+                });
             });
-        });
+        }
     }
 
     getAllOrders() {

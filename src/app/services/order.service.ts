@@ -9,7 +9,7 @@ import { Status } from '../enums/status.enum';
 })
 export class OrderService {
 
-    apiURL = `${environment.apiUrl}/api/orders`;
+    private apiURL = `${environment.apiUrl}/order-service/api/v1/orders`;
 
     constructor(private http: HttpClient) { }
 

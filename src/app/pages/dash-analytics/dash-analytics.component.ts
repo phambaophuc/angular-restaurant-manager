@@ -1,245 +1,69 @@
-import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
-
-import {
-    ChartComponent,
-    ApexAxisChartSeries,
-    ApexNonAxisChartSeries,
-    ApexChart,
-    ApexXAxis,
-    ApexDataLabels,
-    ApexStroke,
-    ApexYAxis,
-    ApexLegend,
-    ApexFill,
-    ApexGrid,
-    ApexPlotOptions,
-    ApexTooltip,
-    ApexMarkers,
-    NgApexchartsModule
-} from 'ng-apexcharts';
+import { CommonModule, formatDate } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { Review } from 'src/app/common/review';
+import { EmotionService } from 'src/app/services/emotion.service';
+import { ReviewService } from 'src/app/services/review.service';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-
-export type ChartOptions = {
-    series: ApexAxisChartSeries | ApexNonAxisChartSeries;
-    chart: ApexChart;
-    xaxis: ApexXAxis;
-    stroke: ApexStroke;
-    dataLabels: ApexDataLabels;
-    plotOptions: ApexPlotOptions;
-    yaxis: ApexYAxis;
-    tooltip: ApexTooltip;
-    labels: string[];
-    colors: string[];
-    legend: ApexLegend;
-    fill: ApexFill;
-    grid: ApexGrid;
-    markers: ApexMarkers;
-};
 
 @Component({
     selector: 'app-dash-analytics',
     standalone: true,
-    imports: [CommonModule, SharedModule, NgApexchartsModule],
+    imports: [CommonModule, SharedModule, MatIconModule],
     templateUrl: './dash-analytics.component.html',
     styleUrls: ['./dash-analytics.component.scss']
 })
-export class DashAnalyticsComponent {
+export class DashAnalyticsComponent implements OnInit {
 
-    // public props
-    @ViewChild('chart') chart!: ChartComponent;
-    chartOptions!: Partial<ChartOptions>;
-    chartOptions_1!: Partial<ChartOptions>;
-    chartOptions_2!: Partial<ChartOptions>;
-    chartOptions_3!: Partial<ChartOptions>;
+    reviews: Review[] = [];
 
-    // constructor
-    constructor() {
-        this.chartOptions = {
-            chart: {
-                height: 205,
-                type: 'line',
-                toolbar: {
-                    show: false
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                width: 2,
-                curve: 'smooth'
-            },
-            series: [
-                {
-                    name: 'Arts',
-                    data: [20, 50, 30, 60, 30, 50]
-                },
-                {
-                    name: 'Commerce',
-                    data: [60, 30, 65, 45, 67, 35]
-                }
-            ],
-            legend: {
-                position: 'top'
-            },
-            xaxis: {
-                type: 'datetime',
-                categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000'],
-                axisBorder: {
-                    show: false
-                }
-            },
-            yaxis: {
-                show: true,
-                min: 10,
-                max: 70
-            },
-            colors: ['#73b4ff', '#59e0c5'],
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'light',
-                    gradientToColors: ['#4099ff', '#2ed8b6'],
-                    shadeIntensity: 0.5,
-                    type: 'horizontal',
-                    opacityFrom: 1,
-                    opacityTo: 1,
-                    stops: [0, 100]
-                }
-            },
-            grid: {
-                borderColor: '#cccccc3b'
+    constructor(private reviewService: ReviewService, private emotionService: EmotionService) { }
+
+    ngOnInit(): void {
+        this.reviewService.getTop6NewReviews().subscribe(
+            (reviews) => {
+                this.reviews = reviews;
+                this.reviews.forEach(review => {
+                    this.emotionService.predictEmotion(review.comment).subscribe(
+                        (data: any) => {
+                            review.emotion = data.emotion;
+                        }
+                    );
+                });
             }
-        };
-        this.chartOptions_1 = {
-            chart: {
-                height: 150,
-                type: 'donut'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        size: '75%'
-                    }
-                }
-            },
-            labels: ['New', 'Return'],
-            series: [39, 10],
-            legend: {
-                show: false
-            },
-            tooltip: {
-                theme: 'dark'
-            },
-            grid: {
-                padding: {
-                    top: 20,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                }
-            },
-            colors: ['#4680ff', '#2ed8b6'],
-            fill: {
-                opacity: [1, 1]
-            },
-            stroke: {
-                width: 0
-            }
-        };
-        this.chartOptions_2 = {
-            chart: {
-                height: 150,
-                type: 'donut'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        size: '75%'
-                    }
-                }
-            },
-            labels: ['New', 'Return'],
-            series: [20, 15],
-            legend: {
-                show: false
-            },
-            tooltip: {
-                theme: 'dark'
-            },
-            grid: {
-                padding: {
-                    top: 20,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                }
-            },
-            colors: ['#ccc', '#2ed8b6'],
-            fill: {
-                opacity: [1, 1]
-            },
-            stroke: {
-                width: 0
-            }
-        };
-        this.chartOptions_3 = {
-            chart: {
-                type: 'area',
-                height: 145,
-                sparkline: {
-                    enabled: true
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            colors: ['#ff5370'],
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shade: 'dark',
-                    gradientToColors: ['#ff869a'],
-                    shadeIntensity: 1,
-                    type: 'horizontal',
-                    opacityFrom: 1,
-                    opacityTo: 0.8,
-                    stops: [0, 100, 100, 100]
-                }
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 2
-            },
-            series: [
-                {
-                    data: [45, 35, 60, 50, 85, 70]
-                }
-            ],
-            yaxis: {
-                min: 5,
-                max: 90
-            },
-            tooltip: {
-                fixed: {
-                    enabled: false
-                },
-                x: {
-                    show: false
-                },
-                marker: {
-                    show: false
-                }
-            }
-        };
+        );
     }
+
+    formatDateTime(dateTimeString: string): string {
+        return formatDate(dateTimeString, 'dd-MM-yyyy', 'en-US');
+    }
+
+    getEmotionIcon(emotion: string): string {
+        switch (emotion) {
+            case 'Positive':
+                return 'add_reaction';
+            case 'Negative':
+                return 'mood_bad';
+            case 'Neutral':
+                return 'sentiment_neutral';
+            default:
+                return 'sentiment_neutral';
+        }
+    }
+
+    getEmotionColor(emotion: string): string {
+        switch (emotion) {
+            case 'Positive':
+                return '#4CAF50';
+            case 'Negative':
+                return '#F44336';
+            case 'Neutral':
+                return '#FFC107';
+            default:
+                return '#757575';
+        }
+    }
+
     cards = [
         {
             background: 'bg-c-blue',

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TableService {
 
-    apiURL = `${environment.apiUrl}/api/tables`;
+    private apiURL = `${environment.apiUrl}/table-service/api/v1/tables`;
 
     constructor(private http: HttpClient) { }
 

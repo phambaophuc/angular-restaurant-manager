@@ -11,7 +11,7 @@ export class WebsocketService {
     constructor() { }
 
     public connect() {
-        let socket = new SockJS(`http://localhost:8765/sockjs-websocket`);
+        let socket = new SockJS(`http://localhost:8765/websocket`);
         let stompClient = Stomp.over(socket);
         return stompClient;
     }

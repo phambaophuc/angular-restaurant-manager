@@ -20,7 +20,8 @@
                         "allowedCommonJsDependencies": [
                             "bezier-easing",
                             "mousetrap",
-                            "apexcharts"
+                            "apexcharts",
+                            "sockjs-client"
                         ],
                         "outputPath": "dist/manage-shop",
                         "index": "src/index.html",
